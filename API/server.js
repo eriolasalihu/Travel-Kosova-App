@@ -14,6 +14,10 @@ mongoose.connect(connectionSting).then(() => {
 
 	const app = express();
 
+	
+
+	app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
 	app.use(
 		cors({
 			origin: "*",

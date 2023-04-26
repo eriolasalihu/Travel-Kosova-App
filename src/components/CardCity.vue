@@ -1,66 +1,118 @@
 <template>
-    <VueDropzone
-      id="dropzone"
-      ref="filesDropzone"
-      :options="dropzoneOptions"
-      :useCustomSlot="true"
-      @vdropzone-mounted="handleMount"
-      @vdropzone-removed-file="removeFile"
-      :destroyDropzone="false"
-      class="rounded-lg mb-4"
-    >
-      <div class="justify-content-center">
-        <h3 class="text-success font-weight-bold">
-          Drag and drop to upload files
-        </h3>
-        <div>...or click to select a file from your computer</div>
+  <body class="col-lg-4 mt-4 col-md-6 col-sm-12">
+    <div class="card">
+      <img
+        v-if="src"
+        :src="src"
+        class="card-img-top"
+        style="max-height: 150px"
+      />
+      <div class="card">
+        <h5 class="card-header">{{ city.name }}</h5>
+        <h5 class="card-body">{{ city.description }}</h5>
+        <h6 class="card-footer">
+          <b>Inserted At: </b>
+          {{ city.insertedDate ? city.insertedDate : "--" }}
+        </h6>
+        <h5 class="card-footer">{{ city.rating }}</h5>
+        <div class="btns">
+          <router-link
+            class="btnLink"
+            :to="{ name: 'SingleCity', params: { id: city._id } }"
+            >View</router-link
+          >
+          <button
+            type="button"
+            class="btnDel"
+            v-if="isAdmin"
+            @click.prevent="editCity(city._id)"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btnDel"
+            v-if="isAdmin"
+            @click.prevent="removeCity(city.name)"
+          >
+            Delete
+          </button>
+        </div>
       </div>
-    </VueDropzone>
-  </template>
-  
-  <script>
-  import VueDropzone from "vue2-dropzone";
-  import "vue2-dropzone/dist/vue2Dropzone.min.css";
-  import removeFileCity from "../utility/City/removeFileCity";
-  import getFilesDetailsCity from "../utility/City/getFilesDetailsCity";
-  
-  export default {
-    components: {
-      VueDropzone,
+    </div>
+  </body>
+</template>
+
+<script>
+export default {
+  props: {
+    city: Object,
+  },
+  computed: {
+    isAdmin() {
+      return this.$store.state.users.isAdmin;
     },
-    props: {
-      cityId: String,
-      initialFilesCity: String,
+    src() {
+      const filename = this.city.files?.split(";")[0];
+
+      return filename ? `http://localhost:1000/static/${filename}` : null;
     },
-    data() {
-      return {
-        dropzoneOptions: {
-          url: `http://localhost:1000/cities/${this.cityId}/uploadFile`,
-          method: "put",
-          thumbnailWidth: 150,
-          maxFilesize: 15,
-        },
-      };
+    cities() {
+      return this.$store.state.cities.cities;
     },
-    methods: {
-      removeFile(file) {
-        removeFileCity(this.cityId, file);
-      },
-      async handleMount() {
-        if (!this.initialFilesCity || this.initialFilesCity.length === 0) {
-          return;
-        }
-  
-        const documentFiles = await getFilesDetailsCity(this.initialFilesCity);
-  
-        documentFiles.forEach(({ fileDetails, fileUrl }) => {
-          this.$refs.filesDropzone.manuallyAddFile(
-            fileDetails,
-            `http://localhost:1000/${fileUrl}`
-          );
-        });
-      },
+  },
+  methods: {
+    removeCity(cityName) {
+      this.$store.dispatch("removeCity", cityName);
     },
-  };
-  </script>
-  
+    editCity(cityId) {
+      this.$router.push({ name: "EditCity", params: { id: cityId } });
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.container {
+  h2 {
+    text-align: center;
+    align-self: center;
+  }
+}
+
+.card {
+  padding: 20px;
+
+  .btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px;
+    width: 30%;
+
+    .btnLink {
+      padding: 15px;
+      text-decoration: none;
+      color: black;
+    }
+
+    button {
+      background-color: black;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-bottom: 3%;
+      margin-top: 3%;
+      margin-left: 5%;
+    }
+
+    li:first-child {
+      font-size: 30px;
+    }
+  }
+}
+</style>

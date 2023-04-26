@@ -1,4 +1,4 @@
-# fireblogs
+# Kosova-Travel-Blog
 
 ## Project setup
 ```

@@ -3,7 +3,9 @@
     <div class="container">
       <button v-if="isAdmin">
         <b-button variant="primary">
-          <router-link class="btnLink" :to="{ name: 'CreateCity' }">Add a city</router-link>
+          <router-link class="btnLink" :to="{ name: 'CreateCity' }"
+            >Add a city</router-link
+          >
         </b-button>
       </button>
       <div class="row">
@@ -66,7 +68,7 @@ export default {
   background-color: #3a3a3a;
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

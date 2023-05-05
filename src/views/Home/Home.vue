@@ -130,6 +130,8 @@ export default {
   img {
     width: 830px;
     height: 580px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px;
   }
 
   .img2 {

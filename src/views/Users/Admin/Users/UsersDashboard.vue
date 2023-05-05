@@ -110,17 +110,23 @@ export default {
   },
   methods: {
     makeAdmin(id) {
-      this.$store.dispatch("makeAdmin", id).then(() => {
-        window.location.reload();
-      }).catch((err) => console.log(err));
+      this.$store
+        .dispatch("makeAdmin", id)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
     },
     removeAdmin(id) {
-      this.$store.dispatch("removeAdmin", id).then(() => {
-        window.location.reload();
-      }).catch((err) => console.log(err));
+      this.$store
+        .dispatch("removeAdmin", id)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
     },
     async fetchUsers() {
-      this.users = []
+      this.users = [];
       await db
         .collection("users")
         .get()

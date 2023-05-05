@@ -68,55 +68,56 @@ export default {
   }
 
   margin-right: 5%;
-  margin-left: 5%;
+  margin-left: 1%;
   width: 90%;
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: center;
   padding: 15px;
 
   .container {
-    padding: 15px;
+    padding: 30px;
     margin-top: 3%;
     margin-bottom: 3%;
     width: 160%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: 1px solid gray;
+    border-top: 5px solid #178658;
+    border-radius: 10px;
 
     input {
-      border: 1px solid black;
+      border-bottom: 1px solid gray;
       font-size: 20px;
       height: 20%;
       width: auto;
-      padding: 15px;
+      padding: 7px;
       margin-bottom: 3%;
       margin-top: 3%;
     }
-
     textarea {
       font-size: 20px;
       height: 20%;
       width: auto;
       padding: 15px;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
       box-sizing: border-box;
-      border: 3px solid black;
+      /* border: 3px solid black; */
       margin-bottom: 3%;
+      border-radius: 10px;
       margin-top: 3%;
+      box-shadow: 0px 0px 4px 3px #d0cbcb;
     }
     button {
-      background-color: black;
-      border: none;
-      color: white;
-      padding: 15px 32px;
+      border: 2px solid #178658;
+      color: #d0a650;
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
       margin-bottom: 3%;
       margin-top: 3%;
+      border-radius: 10px;
     }
   }
 }

@@ -6,6 +6,7 @@ export default {
     city: {},
     gastronomies: [],
     places: [],
+    cityNews: [],
     loading: false,
     fetchingCity: false,
     cityPhotoName: "",
@@ -50,6 +51,9 @@ export default {
     SET_PLACES(state, payload) {
       state.places = payload;
     },
+    SET_CITY_NEWS(state, payload) {
+      state.cityNews = payload;
+    },
   },
   actions: {
     getCities({ commit }) {
@@ -93,6 +97,24 @@ export default {
           .get(`/cities/${id}/places`)
           .then((response) => {
             commit("SET_PLACES", response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          })
+          .finally(() => {
+            commit("SET_LOADING", false);
+          });
+      });
+    },
+    getCityNews({ commit }, id) {
+      commit("SET_LOADING", true);
+      return new Promise((resolve, reject) => {
+        api("localhost")
+          .get(`/cities/${id}/cityNews`)
+          .then((response) => {
+            console.log("response "+response)
+            commit("SET_CITY_NEWS", response.data);
             resolve(response);
           })
           .catch((error) => {
@@ -202,5 +224,21 @@ export default {
           });
       });
     },
-  },
-};
+    addCityNews({ commit }, payload) {
+      commit("SET_LOADING", true);
+      return new Promise((resolve, reject) => {
+        api("localhost")
+          .post(`/cities/${payload.id}/cityNews`, payload.cityNews)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          })
+          .finally(() => {
+            commit("SET_LOADING", false);
+          });
+      });
+    },
+}
+}

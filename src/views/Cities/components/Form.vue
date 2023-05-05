@@ -7,6 +7,12 @@
         </v-icon>
         Create Gastronomy
       </v-btn>
+      <v-btn class="primary-btn" tile @click="onNews">
+        <v-icon left>
+          mdi-plus
+        </v-icon>
+        Create News
+      </v-btn>
       <v-btn class="primary-btn" tile @click="onPlace">
         <v-icon left>
           mdi-plus
@@ -68,6 +74,9 @@ export default {
     },
     onPlace() {
       this.$router.push({ name: "CityPlaceForm", id: this.id });
+    },
+    onNews() {
+      this.$router.push({ name: "CityNewsForm", id: this.id });
     },
     editCity() {
       const updatedCity = {

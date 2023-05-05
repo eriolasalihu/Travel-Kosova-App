@@ -52,6 +52,11 @@ export default [
     component: () => import("../../views/Cities/components/AddGastronomy.vue"),
   },
   {
+    path: "/cities/:id/create/cityNews",
+    name: "CityNewsForm",
+    component: () => import("../../views/Cities/components/AddNews.vue"),
+  },
+  {
     path: "/cities/:id/create/place",
     name: "CityPlaceForm",
     component: () => import("../../views/Cities/components/AddPlaces.vue"),

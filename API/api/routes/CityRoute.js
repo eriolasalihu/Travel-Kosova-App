@@ -27,6 +27,10 @@ CityRoute.post("/:id/experience", CityController.AddCityExperience);
 CityRoute.get("/:id/places", CityController.getCitiesPlace);
 CityRoute.post("/:id/places", CityController.AddCityPlace);
 
+//City News
+CityRoute.get("/:id/cityNews", CityController.getCitiesNews);
+CityRoute.post("/:id/cityNews", CityController.AddCityNews);
+
 //DropZone
 CityRoute.put("/:id/uploadFile", CityController.uploadFile);
 CityRoute.put("/:postId/removeFile/:filename", CityController.deleteFile);

@@ -3,13 +3,13 @@
     <div class="cityHero">
       <div class="imgShadow">
         <img
-          :src="require('../../../assets/blogPhotos/experiencesFull.jpg')"
+          :src="require('../../../assets/blogPhotos/designed-for-everyone.jpg')"
           :alt="this.currentCity.id"
           :onerror="replaceByDefault"
           class="cityMainImage"
         />
       </div>
-      <h1 class="cityName">Experiences</h1>
+      <h1 class="cityName">News</h1>
     </div>
     <div class="descriptionContainer">
       <h2>
@@ -24,28 +24,52 @@
     </div>
     <div class="cityMainContent">
       <div class="cityTopPlacesContainer">
-        <div class="cityColumns">
-          <div class="col col-lg-4 col-12 cityOptions artifacts">
-            <h1>Artifacts</h1>
+        <!-- 1 -->
+        <div class="col col-lg-5 col-12 cityTopPlacesBox">
+          <div class="container boxContainer">
+            <h2>{{ cityName }}'s top Restaurants and Bars!</h2>
+            <hr />
+            <h4>
+              Experience modern local dishes and breathtaking views at our
+              favourite restaurant, {{ cityName }}'s best restaurant, where the
+              menu is created by executive and professional chefs.
+            </h4>
+            <p>Location: {{ cityName }}</p>
+            <button class="btn seeMoreBtn">See More</button>
           </div>
-          <div class="col col-lg-4 col-12 cityOptions mosques">
-            <h1>Churches & Mosques</h1>
-          </div>
-          <div class="col col-lg-4 col-12 cityOptions museums">
-            <h1>Museums</h1>
+        </div>
+        <div class="col col-lg-5 col-12 cityTopPlacesBox">
+          <div class="container boxContainerImg">
+            <img
+              :src="require('../../../assets/blogPhotos/gastronomy1.jpg')"
+              :alt="currentCity.id"
+              :onerror="replaceByDefault"
+              class="topPlacesImg"
+            />
           </div>
         </div>
       </div>
-      <div class="cityTopPlacesContainer">
-        <div class="cityColumns">
-          <div class="col col-lg-4 col-12 cityOptions lakes">
-            <h1>Lakes</h1>
+      <div v-for="news in cityNews" :key="news._id">
+        <div class="cityTopPlacesContainer">
+          <!-- 1 -->
+          <div class="col col-lg-5 col-12 cityTopPlacesBox">
+            <div class="container boxContainer">
+              <h2>{{ news.title }}</h2>
+              <hr />
+              <h4>{{ news.description }}</h4>
+              <p>Location: {{ news.author }}</p>
+              <button class="btn seeMoreBtn">See More</button>
+            </div>
           </div>
-          <div class="col col-lg-4 col-12 cityOptions hiking">
-            <h1>Hiking</h1>
-          </div>
-          <div class="col col-lg-4 col-12 cityOptions nature">
-            <h1>Nature</h1>
+          <div class="col col-lg-5 col-12 cityTopPlacesBox">
+            <div class="container boxContainerImg">
+              <img
+                :src="require('../../../assets/blogPhotos/gastronomy2.jpg')"
+                :alt="currentCity.id"
+                :onerror="replaceByDefault"
+                class="topPlacesImg"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -77,18 +101,30 @@ export default {
       imgError: false,
       id: null,
       cityName: null,
-      currentCity: {},
     };
   },
   created() {
     this.id = this.$route.params.id;
-    this.currentCity = this.$store.state.cities.city;
+    this.fetchCityNews();
     this.cityName = this.$store.state.cities.city.name;
   },
-  computed: {},
+  computed: {
+    loading() {
+      return this.$store.state.cities.loading;
+    },
+    currentCity() {
+      return this.$store.state.cities.city;
+    },
+    cityNews() {
+      return this.$store.state.cities.cityNews;
+    },
+  },
   methods: {
     replaceByDefault(e) {
       e.target.src = this.defaultImg;
+    },
+    fetchCityNews() {
+      this.$store.dispatch("getCityNews", this.id);
     },
   },
 };

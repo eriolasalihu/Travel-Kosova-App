@@ -2,6 +2,7 @@ import CityModel from "../models/CityModel";
 import GastronomyModel from "../models/GastronomyModel";
 import ExperienceModel from "../models/ExperienceModel";
 import PlaceModel from "../models/PlaceModel";
+import NewsModel from "../models/NewsModel";
 import FileServiceCity from "../services/FileServiceCity";
 
 export default {
@@ -110,6 +111,19 @@ export default {
 		});
 		res.json(places);
 	},
+	getCitiesNews: async (req, res) => {
+		const { id } = req.params;
+
+		const city = await CityModel.findOne({ _id: id }).populate("cityNews");
+
+		const cityNews = [];
+		city.cityNewss.forEach((news) => {
+			if (news.city.toString() == id) {
+				cityNews.push(news);
+			}
+		});
+		res.json(cityNews);
+	},
 	AddCityPlace: async (req, res) => {
 		const { cityId } = req.params;
 
@@ -126,6 +140,23 @@ export default {
 		await city.save();
 
 		res.json(newPlace);
+	},
+	AddCityNews: async (req, res) => {
+		const { cityId } = req.params;
+
+		const newNewsModel = new NewsModel(req.body);
+
+		const city = await CityModel.findOne(cityId);
+
+		newNewsModel.city = city;
+
+		await newNewsModel.save();
+
+		city.news.push(newNewsModel);
+
+		await city.save();
+
+		res.json(newNewsModel);
 	},
 	deleteFile: async (req, res) => {
 		const { cityId, filename } = req.params;

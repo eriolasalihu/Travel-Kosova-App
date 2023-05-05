@@ -26,6 +26,12 @@ const schema = mongoose.Schema({
       ref: "place",
     },
   ],
+  cityNews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "news",
+    },
+  ],
 });
 
 const model = mongoose.model("Cities", schema);

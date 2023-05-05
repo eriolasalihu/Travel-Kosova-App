@@ -10,7 +10,7 @@ const connectionSting = "mongodb://localhost:27017/Travel_Test";
 
 mongoose.connect(connectionSting).then(() => {
 	console.log("Connected to mongodb on: " + connectionSting);
-	const port = process.env.PORT || 1000;
+	const port = process.env.PORT || 1003;
 
 	const app = express();
 

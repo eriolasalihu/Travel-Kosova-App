@@ -71,7 +71,7 @@
           class="col col-lg-4 col-12 cityOptions experiences"
           @click="$router.push({ name: 'CityExperiences' })"
         >
-          <h1>Experiences</h1>
+          <h1>News</h1>
         </div>
         <div
           class="col col-lg-4 col-12 cityOptions places"
@@ -285,7 +285,7 @@ export default {
       background-image: url("../../../assets/blogPhotos/gastronomy.jpg");
     }
     .experiences {
-      background-image: url("../../../assets/blogPhotos/experiences.jpg");
+      background-image: url("../../../assets/blogPhotos/designed-for-everyone.jpg");
     }
     .places {
       background-image: url("../../../assets/blogPhotos/places.jpg");

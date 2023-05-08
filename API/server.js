@@ -10,11 +10,11 @@ const connectionSting = "mongodb://localhost:27017/Travel_Test";
 
 mongoose.connect(connectionSting).then(() => {
 	console.log("Connected to mongodb on: " + connectionSting);
-	const port = process.env.PORT || 1003;
+	const port = 1000;
 
 	const app = express();
 
-	
+
 
 	app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
